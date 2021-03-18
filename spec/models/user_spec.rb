@@ -10,4 +10,6 @@ RSpec.describe User, type: :model do
   # Validation tests
   # ensure column username is present before saving
   it { should validate_presence_of(:username) }
+  # ensure column username is unique before saving
+  it { should validate_uniqueness_of(:username) }
 end

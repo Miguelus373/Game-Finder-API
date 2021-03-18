@@ -8,6 +8,8 @@ RSpec.describe Game, type: :model do
   # ensure Game model has a m:m relationship with the User model
   it { should have_many(:users) }
   # Validation tests
+  # ensure column title is unique before saving
+  it { should validate_uniqueness_of(:title) }
   # ensure columns title, description, image, and genre are present before saving
   it { should validate_presence_of(:title) }
   it { should validate_presence_of(:description) }

@@ -2,8 +2,9 @@ class UsersController < ApplicationController
   # GET /users/1
   def show
     @user = User.find(params[:id])
+    @favs = @user.favourites.map { |fav| { id: fav.id, game_id: fav.game_id } }
 
-    render json: @user
+    render json: { info: @user, favs: @favs }
   end
 
   # POST /users

@@ -7,7 +7,7 @@ RSpec.describe 'Users', type: :request do
         user = User.create(username: 'Her')
         get "/users/#{user.id}"
         expect(JSON.parse(response.body)).not_to be_empty
-        expect(JSON.parse(response.body)['username']).to eq('Her')
+        expect(JSON.parse(response.body)['info']['username']).to eq('Her')
       end
 
       it 'returns status code 200' do

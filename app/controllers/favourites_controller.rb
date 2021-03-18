@@ -1,7 +1,7 @@
 class FavouritesController < ApplicationController
   # POST /favourites
   def create
-    @favourite = Favourite.new(favourite_params)
+    @favourite = Favourite.find_or_create_by(favourite_params)
 
     if @favourite.save
       render json: @favourite, status: :created, location: @favourite

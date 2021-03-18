@@ -17,8 +17,9 @@ class FavouritesController < ApplicationController
   end
 
   private
-     # Only allow a trusted parameter "white list" through.
-    def favourite_params
-      params.permit(:user_id, :game_id)
-    end
+
+  # Only allow a trusted parameter "white list" through.
+  def favourite_params
+    params.permit(:user_id, :game_id)
+  end
 end

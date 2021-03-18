@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true
 
-  def as_json(option={})
-    super(only: [:id, :username])
+  def as_json(_option = {})
+    super(only: %i[id username])
   end
 end

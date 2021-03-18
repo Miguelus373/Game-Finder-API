@@ -14,8 +14,9 @@ class GamesController < ApplicationController
   end
 
   private
-    # Only allow a trusted parameter "white list" through.
-    def game_params
-      params.permit(:title, :description, :image, :genre)
-    end
+
+  # Only allow a trusted parameter "white list" through.
+  def game_params
+    params.permit(:title, :description, :image, :genre)
+  end
 end

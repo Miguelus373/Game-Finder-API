@@ -14,23 +14,27 @@ RSpec.describe 'Favourites', type: :request do
       end
 
       it 'returns status code 201' do
-        post '/favourites', params: { user_id: User.last.id, game_id: Game.last.id }
+        headers = { 'Authorization' => "Basic #{create_token(user_id: User.last.id)}" }
+
+        post '/favourites', params: { user_id: User.last.id, game_id: Game.last.id }, headers: headers
         expect(response).to have_http_status(201)
       end
     end
 
     context 'with invalid params' do
       it 'returns status code 422' do
-        post '/favourites', params: { user_id: 35, game_id: 43 }
-        expect(response).to have_http_status(422)
+        headers = { 'Authorization' => "Basic #{create_token(user_id: 35)}" }
+
+        post '/favourites', params: { user_id: 35, game_id: 43 }, headers: headers
+        expect(response).to have_http_status(403)
       end
 
-      it 'returns a validation failure message' do
-        post '/favourites', params: { user_id: 27, game_id: 40 }
-        expect(JSON.parse(response.body)['user'])
-          .to eq(['must exist'])
-        expect(JSON.parse(response.body)['game'])
-          .to eq(['must exist'])
+      it 'returns an authorization failure message' do
+        headers = { 'Authorization' => "Basic #{create_token(user_id: 27)}" }
+
+        post '/favourites', params: { user_id: 27, game_id: 40 }, headers: headers
+        expect(JSON.parse(response.body)['message'])
+          .to eq('Error: Couldn\'t find User with \'id\'=27')
       end
     end
   end

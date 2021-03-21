@@ -5,14 +5,18 @@ RSpec.describe 'Users', type: :request do
     context 'with valid params' do
       it 'Returns user' do
         user = User.create(username: 'Her')
-        get "/users/#{user.id}"
+        headers = { 'Authorization' => "Basic #{create_token(user_id: user.id)}" }
+
+        get "/users/#{user.id}", headers: headers
         expect(JSON.parse(response.body)).not_to be_empty
         expect(JSON.parse(response.body)['info']['username']).to eq('Her')
       end
 
       it 'returns status code 200' do
         user = User.create(username: 'Me')
-        get "/users/#{user.id}"
+        headers = { 'Authorization' => "Basic #{create_token(user_id: user.id)}" }
+
+        get "/users/#{user.id}", headers: headers
         expect(response).to have_http_status(200)
       end
     end
@@ -20,13 +24,13 @@ RSpec.describe 'Users', type: :request do
     context 'with invalid params' do
       it 'returns status code 404' do
         get '/users/47'
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(403)
       end
 
       it 'returns error message' do
         get '/users/36'
         expect(JSON.parse(response.body)['message'])
-          .to match(/Couldn't find User with 'id'=36/)
+          .to match(/No Authorization header was sent/)
       end
     end
   end
@@ -36,7 +40,7 @@ RSpec.describe 'Users', type: :request do
       before { post '/users', params: { username: 'Hello' } }
 
       it 'creates a user' do
-        expect(JSON.parse(response.body)['username']).to eq('Hello')
+        expect(JSON.parse(response.body)['user']['username']).to eq('Hello')
       end
 
       it 'returns status code 201' do

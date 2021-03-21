@@ -4,6 +4,7 @@ RSpec.describe FavouritesController, type: :controller do
   before do
     User.create(username: 'user')
     Game.create(title: 'game3', description: 'none', image: 'link', genre: 'fps')
+    request.headers.merge!('Authorization' => "Basic #{create_token(user_id: User.last.id)}")
   end
 
   describe 'POST #create' do

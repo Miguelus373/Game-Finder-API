@@ -11,6 +11,8 @@ require 'rspec/rails'
 # require database cleaner at the top level
 require 'database_cleaner'
 
+include AuthenticateUser
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

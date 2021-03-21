@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  skip_before_action :authenticate
+
   # GET /games
   def index
     @games = Game.all

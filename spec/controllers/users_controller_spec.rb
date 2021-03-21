@@ -4,6 +4,7 @@ RSpec.describe UsersController, type: :controller do
   describe 'GET #show' do
     it 'returns a success response' do
       user = User.create!(username: 'Myself')
+      request.headers.merge!('Authorization' => "Basic #{create_token(user_id: User.last.id)}")
       get :show, params: { id: user.id }
       expect(response).to be_successful
     end

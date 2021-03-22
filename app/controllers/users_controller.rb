@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
     @favs = @user.favourites.map { |fav| { id: fav.id, game_id: fav.game_id } }
 
     render json: { info: @user, favs: @favs }
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
       token = create_token(payload)
 
-      response = { user: @user, token: token }
+      response = { user_id: @user.id, token: token }
 
       render json: response, status: :created, location: @user
     else

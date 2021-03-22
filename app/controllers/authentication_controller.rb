@@ -9,7 +9,7 @@ class AuthenticationController < ApplicationController
 
       token = create_token(payload)
 
-      render json: { username: @user.username, token: token }
+      render json: { user_id: @user.id, token: token }
     else
       render json: { username: 'doesn\'t exist' }, status: :unprocessable_entity
     end

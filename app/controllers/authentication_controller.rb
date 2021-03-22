@@ -11,7 +11,7 @@ class AuthenticationController < ApplicationController
 
       render json: { username: @user.username, token: token }
     else
-      render json: { message: 'Could not find user' }
+      render json: { username: 'doesn\'t exist' }, status: :unprocessable_entity
     end
   end
 

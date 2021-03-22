@@ -6,8 +6,8 @@ RSpec.describe UsersController, type: :routing do
       expect(get: '/users/1').to route_to('users#show', id: '1')
     end
 
-    it 'routes to #create' do
-      expect(post: '/users').to route_to('users#create')
+    it 'routes to /signup' do
+      expect(post: '/signup').to route_to('users#create')
     end
   end
 end

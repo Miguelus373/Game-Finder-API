@@ -35,12 +35,12 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
-  describe 'POST /users' do
+  describe 'POST /signup' do
     context 'with valid params' do
-      before { post '/users', params: { username: 'Hello' } }
+      before { post '/signup', params: { username: 'Hello' } }
 
       it 'creates a user' do
-        expect(JSON.parse(response.body)['user']['username']).to eq('Hello')
+        expect(JSON.parse(response.body)['user_id']).to eq(User.last.id)
       end
 
       it 'returns status code 201' do
@@ -49,7 +49,7 @@ RSpec.describe 'Users', type: :request do
     end
 
     context 'with invalid params' do
-      before { post '/users', params: { username: ' ' } }
+      before { post '/signup', params: { username: ' ' } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)

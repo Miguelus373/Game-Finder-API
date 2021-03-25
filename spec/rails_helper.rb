@@ -11,7 +11,9 @@ require 'rspec/rails'
 # require database cleaner at the top level
 require 'database_cleaner'
 
+# rubocop:disable Style/MixinUsage
 include AuthenticateUser
+# rubocop:enable Style/MixinUsage
 
 # Add additional requires below this line. Rails is not loaded until this point!
 

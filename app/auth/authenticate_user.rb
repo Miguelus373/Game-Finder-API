@@ -1,3 +1,5 @@
+# rubocop:disable Style/RescueStandardError
+
 module AuthenticateUser
   def authenticate
     if request.headers['Authorization']
@@ -25,3 +27,4 @@ module AuthenticateUser
     JWT.encode(payload, secret)
   end
 end
+# rubocop:enable Style/RescueStandardError
